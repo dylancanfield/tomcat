@@ -23,7 +23,7 @@ This cookbook features a newly written set of custom resources for installing To
 - compat_resource
 
 ## Custom Resources
-This cookbook is currently undergoing a ground up rewrite that will convert it to a pure library cookbook, more appropriate for the multitude of ways that Tomcat can be installed.  The existing attribute driven installs and tomcat_instance provider will eventually be deprecated in favor of a provider for installation, service management, and 1 or more providers for configuration.
+This cookbook includes providers for building up a Tomcat server, which are designed to be used in a wrapper cookbook where the user provides the remaining config customizations.  See Usage for more detailed examples of how this would all come together to setup Tomcat.
 
 ### tomcat_install
 tomcat_install installs an instance of the tomcat binary direct from Apache's mirror site. As distro packages are not used we can easily deploy per-instance installations and any version available on the Apache archive site can be installed.
