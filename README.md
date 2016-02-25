@@ -11,6 +11,7 @@ This cookbook features a newly written set of custom resources for installing To
 - Debian / Ubuntu derivatives
 - RHEL derivatives
 - Fedora
+- openSUSE / SUSE Linux Enterprises
 
 ### Chef
 - Chef 12.1+
