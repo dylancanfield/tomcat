@@ -1,7 +1,10 @@
 # tomcat Cookbook
 [![Build Status](https://travis-ci.org/chef-cookbooks/tomcat.svg?branch=master)](https://travis-ci.org/chef-cookbooks/tomcat) [![Cookbook Version](https://img.shields.io/cookbook/v/tomcat.svg)](https://supermarket.chef.io/cookbooks/tomcat)
 
-Installs and configures Tomcat, Java servlet engine and webserver version 6 and 7 (8 not yet supported).
+Installs and configures Tomcat, Java servlet engine and webserver.
+
+## Note on the Recent Rewrite
+This cookbook features a newly written set of custom resources for installing Tomcat, as well as a legacy attributes driven recipe / provider combination. The recipe / provider attempted to manage everything Tomcat, which is nearly impossible given the breadth of the Tomcat XML configs. In this attempt to be everything to everyone, we were unfortunately excellent to no one. In the near future the recipes and instance provider will be removed in favor of the simpler tomcat_install and tomcat_service custom resources.  These resources add support for modern Tomcat releases and function better in the wrapper cookbook / library model that complex applications like Tomcat lend themselves to.  See the Usage section below for more information on how to use these custom resources with a wrapper cookbook.
 
 ## Requirements
 ### Platforms
