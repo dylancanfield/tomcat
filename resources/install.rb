@@ -1,6 +1,6 @@
 property :instance_name, String, name_property: true
 property :version, String, required: true, default: '8.0.32'
-property :path, String, default: nil
+property :path, String
 property :tarball_base_path, String, default: 'http://archive.apache.org/dist/tomcat/'
 property :sha1_base_path, String, default: 'http://archive.apache.org/dist/tomcat/'
 property :exclude_docs, kind_of: [TrueClass, FalseClass], default: true
