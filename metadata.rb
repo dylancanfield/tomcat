@@ -15,8 +15,8 @@ depends 'compat_resource', '>= 12.7.3'
   supports os
 end
 
-recipe 'tomcat::default', 'Installs and configures Tomcat'
-recipe 'tomcat::users', 'Setup users and roles for Tomcat'
+recipe 'tomcat::default', 'Installs and configures Tomcat (legacy method)'
+recipe 'tomcat::users', 'Setup users and roles for Tomcat (legacy method)'
 
 source_url 'https://github.com/chef-cookbooks/tomcat' if respond_to?(:source_url)
 issues_url 'https://github.com/chef-cookbooks/tomcat/issues' if respond_to?(:issues_url)
