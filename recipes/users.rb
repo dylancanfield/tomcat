@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+Chef::Log.warn('The recipes will soon be removed from the Tomcat cookbook. Please migrate to the new custom resources or pin your cookbook version')
+
 template "#{node['tomcat']['config_dir']}/tomcat-users.xml" do
   source 'tomcat-users.xml.erb'
   owner 'root'

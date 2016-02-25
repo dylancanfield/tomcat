@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+Chef::Log.warn('The recipes will soon be removed from the Tomcat cookbook. Please migrate to the new custom resources or pin your cookbook version')
+
 # required for the secure_password method from the openssl cookbook
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
