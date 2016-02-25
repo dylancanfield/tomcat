@@ -70,11 +70,7 @@ end
 ```
 
 ## License & Authors
-- Author: Seth Chisamore ([schisamo@chef.io](mailto:schisamo@chef.io))
-- Author: Jamie Winsor ([jamie@vialstudios.com](mailto:jamie@vialstudios.com))
-- Author: Phillip Goldenburg ([phillip.goldenburg@sailpoint.com](mailto:phillip.goldenburg@sailpoint.com))
-- Auther: Mariano Cortesi ([mariano@zauberlabs.com](mailto:mariano@zauberlabs.com))
-- Author: Brendan O'Donnell ([brendan.james.odonnell@gmail.com](mailto:brendan.james.odonnell@gmail.com))
+- Author: Community Cookbook Team ([cookbooks@chef.io](mailto:cookbooks@chef.io))
 
 ```text
 Copyright:: 2010-2015, Chef Software, Inc
