@@ -1,6 +1,14 @@
 property :instance_name, String, name_property: true
 property :version, String, required: true, default: '8.0.32'
-property :install_path, String
+property( :major_version, String, default: lazy do |resource| 
+  # break apart the version string to find the major version
+  resource.version.split('.')[0]
+end )
+property :install_prefix, String, default: '/opt'
+property( :install_path, String, default: lazy do |resource| 
+  # Generate full install path
+  IO::File.join(resource.install_prefix, "tomcat_#{resource.instance_name}_#{resource.version.tr('.', '_')}/").to_s
+end )
 property :tarball_base_path, String, default: 'http://archive.apache.org/dist/tomcat/'
 property :sha1_base_path, String, default: 'http://archive.apache.org/dist/tomcat/'
 property :exclude_docs, kind_of: [TrueClass, FalseClass], default: true
@@ -8,23 +16,9 @@ property :exclude_examples, kind_of: [TrueClass, FalseClass], default: true
 property :exclude_manager, kind_of: [TrueClass, FalseClass], default: false
 property :exclude_hostmanager, kind_of: [TrueClass, FalseClass], default: false
 
-# break apart the version string to find the major version
-def major_version
-  @@major_version ||= version.split('.')[0]
-end
-
-# the install path of this instance of tomcat
-def full_install_path
-  if install_path
-    install_path
-  else
-    @@path ||= "/opt/tomcat_#{instance_name}_#{version.tr('.', '_')}/"
-  end
-end
-
 # build the extraction command based on the passed properties
 def extraction_command
-  cmd = "tar -xzf #{Chef::Config['file_cache_path']}/apache-tomcat-#{version}.tar.gz -C #{full_install_path} --strip-components=1"
+  cmd = "tar -xzf #{Chef::Config['file_cache_path']}/apache-tomcat-#{version}.tar.gz -C #{install_path} --strip-components=1"
   cmd << " --exclude='*webapps/examples*'" if exclude_examples
   cmd << " --exclude='*webapps/ROOT/*'" if exclude_examples
   cmd << " --exclude='*webapps/docs*'" if exclude_docs
@@ -95,14 +89,14 @@ action :install do
 
   directory 'tomcat install dir' do
     mode '0750'
-    path full_install_path
+    path install_path
     recursive true
   end
 
   execute 'extract tomcat tarball' do
     command extraction_command
     action :run
-    creates ::File.join(full_install_path, 'LICENSE')
+    creates ::File.join(install_path, 'LICENSE')
   end
 
   group "tomcat_#{instance_name}" do
@@ -116,13 +110,13 @@ action :install do
 
   # make sure the instance's user owns the instance install dir
   execute "chown install dir as tomcat_#{instance_name}" do
-    command "chown -R tomcat_#{instance_name}:root #{full_install_path}"
+    command "chown -R tomcat_#{instance_name}:root #{install_path}"
     action :run
-    not_if { Etc.getpwuid(::File.stat("#{full_install_path}/LICENSE").uid).name == "tomcat_#{instance_name}" }
+    not_if { Etc.getpwuid(::File.stat("#{install_path}/LICENSE").uid).name == "tomcat_#{instance_name}" }
   end
 
   # create a link that points to the latest version of the instance
-  link "/opt/tomcat_#{instance_name}" do
-    to full_install_path
+  link IO::File.join(install_prefix, "/tomcat_#{instance_name}").to_s do
+    to install_path
   end
 end
