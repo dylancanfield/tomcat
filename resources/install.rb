@@ -1,14 +1,14 @@
 property :instance_name, String, name_property: true
 property :version, String, required: true, default: '8.0.32'
-property( :major_version, String, default: lazy do |resource| 
+property(:major_version, String, default: lazy do |resource|
   # break apart the version string to find the major version
   resource.version.split('.')[0]
-end )
+end)
 property :install_prefix, String, default: '/opt'
-property( :install_path, String, default: lazy do |resource| 
+property(:install_path, String, default: lazy do |resource|
   # Generate full install path
   IO::File.join(resource.install_prefix, "tomcat_#{resource.instance_name}_#{resource.version.tr('.', '_')}/").to_s
-end )
+end)
 property :tarball_base_path, String, default: 'http://archive.apache.org/dist/tomcat/'
 property :sha1_base_path, String, default: 'http://archive.apache.org/dist/tomcat/'
 property :exclude_docs, kind_of: [TrueClass, FalseClass], default: true
